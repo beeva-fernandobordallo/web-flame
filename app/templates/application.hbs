@@ -1,0 +1,106 @@
+<ul id="slide-out" class="side-nav fixed center-align">
+  <div class="brand-logo thin">
+    <div class="valign-wrapper" {{action 'redirectHome'}}>
+      <img class="logo-image" src="/assets/img/fire-logo.png">
+      <span class="hide-on-small-only">Flame Stack</span>
+      <span class="hide-on-med-and-up">Flame/St</span>
+    </div>
+  </div>
+  <li class="sidenav-link" style="padding-bottom: 16px">
+    <a href="#!">First Sidebar Link</a>
+  </li>
+  <li class="sidenav-link" style="padding-bottom: 16px">
+    <a href="#!">Second Sidebar Link</a>
+  </li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
+  <div class="fixed-action-btn" style="top: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large mdi-navigation-menu"></i>
+    </a>
+  </div>
+</a>
+<div class="right main-container">
+
+    {{outlet}}
+
+    <footer class="page-footer amber darken-3">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="white-text">Creceremos Juntos</h5>
+            <p class="grey-text text-lighten-4 flow-text">
+              Con la comunidad OpenSource queremos hacer del FlameStack una solución versatil para tus prototipos y proyectos de menor alcance.
+              Documentación, correción, refactorización de código, incorporación de nuevas funcionalidades ... La puerta está abierta para todo el que quiera formar parte.
+            </p>
+
+
+          </div>
+          <div class="col s12">
+            <h5 class="white-text">Links de interés</h5>
+            <ul>
+              <li>
+                <a class="white-text" href="#!">
+                  Ember.js
+                </a>
+              </li>
+              <li>
+                - Guias completas de todas las versiones de ember.
+              </li>
+              <li>
+                <a class="white-text" href="#!">
+                  Ember-cli
+                </a>
+              </li>
+              <li>
+                - Descubre el poder de Ember-cli. Compilador, scaffolding (generadores), servidor, testing ... Una herramienta de la que no podrás prescindir.
+              </li>
+              <li>
+                <a class="white-text" href="#!">
+                  Firebase
+                </a>
+              </li>
+              <li>
+                - Backend cloud sin el que ya no sabría vivir. Autenticación de usuarios en minutos, gestión de acceso a datos con simples reglas y estructuración de datos completamente abierta.
+              </li>
+              <li>
+                <a class="white-text" href="#!">
+                  Animate.css
+                </a>
+              </li>
+              <li>
+                - Librería de animaciones ligera con la que dar vida a la web. Entradas triunfales, avisos visuales, brincos y giros, todo unido en un pequeño pack de alegría.
+              </li>
+              <li>
+                <a class="white-text" href="#!">
+                  Materialize
+                </a>
+              </li>
+              <li>
+                - Nunca ha sido tan facil utilizar material design en tus proyectos. Este framework responsivo tiene la gran ventaja de estar documentado de maravilla. Investiga sus guias y prueba sus componentes.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        Made by <a class="orange-text text-lighten-3" href="#">Materialize</a>. <small>Be sure to pop over to their page!</small>
+        </div>
+      </div>
+    </footer>
+</div>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav({
+        edge: 'left', // Choose the horizontal origin
+      }
+    );
+  });
+
+</script>
