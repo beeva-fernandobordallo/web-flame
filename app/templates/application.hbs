@@ -7,25 +7,45 @@
     </div>
   </div>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Review</a>
+    {{#link-to 'v1.es.review'}}
+      Review
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Setup</a>
+    {{#link-to 'v1.es.setup'}}
+      Setup
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Primeros Pasos</a>
+    {{#link-to 'v1.es.primeros-pasos'}}
+      Primeros Pasos
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Servicios</a>
+    {{#link-to 'v1.es.servicios'}}
+      Servicios
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Ruta base</a>
+    {{#link-to 'v1.es.ruta-base'}}
+      Ruta base
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Seguridad & Autenticación</a>
+    {{#link-to 'v1.es.seg-y-auth'}}
+      Seguridad
+    {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
-    <a href="#!">Herramientas</a>
+    {{#link-to 'v1.es.herramientas'}}
+      Herramientas
+    {{/link-to}}
+  </li>
+  <li class="divider"></li>
+  <li class="sidenav-link" style="padding-bottom: 16px">
+    {{#link-to 'v1.es.proyecto'}}
+      + Proyecto
+    {{/link-to}}
   </li>
   <li class="divider"></li>
   <li class="sidenav-link" style="padding-bottom: 16px">
@@ -35,7 +55,7 @@
     <a class="valign-wrapper"><i class="tiny material-icons">language</i> Version Española</a>
   </li>
 </ul>
-<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
+<a id="button-show-hide-side" href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
   <div class="fixed-action-btn" style="top: 45px; right: 24px;">
     <a class="btn-floating btn-large amber darken-4">
       <i class="large mdi-navigation-menu"></i>

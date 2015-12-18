@@ -49,11 +49,14 @@ export default Ember.Route.extend({
 
   actions: {
         didTransition: function() {
-          this.Animate.entryPage('.page', 'fadeInRightBig');
+          this.Animate.entryPage('.page', 'fadeIn');
         },
 
         willTransition: function(transition){
-          this.Animate.exitPage('.page','fadeOutRightBig', transition, 'fast');
+          $('.button-collapse').sideNav('hide');
+          $('#sidenav-overlay').remove();
+          $('#sidenav-overlay').remove();
+          this.Animate.exitPage('.page','fadeOut', transition, 'fast');
         }
     }
 
