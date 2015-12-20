@@ -34,7 +34,20 @@
         Uso del serivicio:
       </p>
       <blockquote>
-        addToast(message, displayLength, className, completeCallback);
+        Toast.addToast(message, displayLength, className, completeCallback);
+      </blockquote>
+
+      <h5 class="thin">
+        Demo
+      </h5>
+      <p>
+        <a class="waves-effect waves-light btn teal darken-2" {{action 'launchToast'}}>Lanza Notificación</a>
+      </p>
+      <blockquote>
+        Este botón lanza una <i>acción</i> de Ember que es recibida en una ruta, encargada de lanzar el siguiente commando:
+        <br>
+        <br>
+        this.Toast.addToast('¡Has lanzado una notificación! (3 segundos)', 3000, 'rounded');
       </blockquote>
     </section>
   </div>
