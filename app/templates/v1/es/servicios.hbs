@@ -1,3 +1,43 @@
 <div class="page">
+  <div class="amber lighten-2">
+    <div class="container" style="padding-bottom:8px">
+        <h1 id="jumpTitle" class="header thin" {{action 'focus' 'jumpTitle' 'bounce' 'slow'}} style="padding-top:60px">
+          <i>Servicios</i>
+        </h1>
+    </div>
+  </div>
+  <div class="amber darken-3">
+    <section class="center">
+      <div class="containerthin" style="margin: 0; padding:15px 0;">
+        <h6 class="header thin">
+          Sírvete de métodos genéricos para manipular datos, lanzar animaciones y ¡mucho más!
+        </h6>
+      </div>
+    </section>
+  </div>
+
+  <div class="container">
+    <section>
+      <h4 class="thin">
+        Notificaciones / Toasts
+      </h4>
+      <p>
+        Utiliza el servicio 'Toast' para mostrar notificaciones al usuario.
+        Las notificaciones mostradas utilizan los diálogos disponibles en el catálogo de componentes de Materialize
+        (<a href="http://materializecss.com/dialogs.html" target="_blank">docs</a>).
+      </p>
+      <p>
+        El servicio es inyectado durante la inicialización en rutas y controladores, ofrenciendo control sobre donde y cuando se lanza las notificaciones.
+        Ejemplos: respuesta a evento capturado en una ruta o respuesta informativa al finalizar un refresh en la página.
+      </p>
+      <p>
+        Uso del serivicio:
+      </p>
+      <blockquote>
+        addToast(message, displayLength, className, completeCallback);
+      </blockquote>
+    </section>
+  </div>
+
   {{outlet}}
 </div>

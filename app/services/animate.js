@@ -2,7 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 
-  go: function(node, animation, speed){
+  go: function(node, animation, speed, infinite){
+    if(infinite){
+      $(node).addClass('anim-infinite');
+    }
     $(node).removeClass('anim-normal anim-slow anim-fast');
     if (speed) {
       var animspeed = 'anim-' + speed;
@@ -51,6 +54,7 @@ export default Ember.Service.extend({
         $(node).addClass(animString).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
           function(){
             $(node).removeClass(animString);
+            $('footer').show();
             resolve('end');
           });
         });
@@ -61,6 +65,7 @@ export default Ember.Service.extend({
   pageTransitionComplete: false,
 
   exitPage: function(node, animation, transition, speed){
+    $('footer').hide();
     $(node).removeClass('anim-normal anim-slow anim-fast');
     var promise = new Promise(function(resolve) {
       if(!this.get('pageTransitionComplete')){

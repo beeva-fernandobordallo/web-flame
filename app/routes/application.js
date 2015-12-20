@@ -43,9 +43,9 @@ export default Ember.Route.extend({
       this.Toast.addToast(this.get('i18n').t('label.languageChange'), 2000);
     },
 
-    focus: function(id, animation, speed){
+    focus: function(id, animation, speed, infinite){
       id = '#' + id;
-      this.Animate.go(id,animation,speed);
+      this.Animate.go(id,animation,speed, infinite);
     },
 
     focusHoverIn: function (id) {
