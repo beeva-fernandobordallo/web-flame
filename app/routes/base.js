@@ -56,7 +56,7 @@ export default Ember.Route.extend({
           $('.button-collapse').sideNav('hide');
           $('#sidenav-overlay').remove();
           $('#sidenav-overlay').remove();
-          this.Animate.exitPage('.page','fadeOut', transition, 'fast');
+          this.Animate.exitPage('.page','fadeOut', transition);
         }
     }
 
