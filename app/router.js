@@ -20,6 +20,7 @@ Router.map(function() {
       this.route('herramientas');
       this.route('proyecto');
       this.route('setup');
+      this.route('mock-data');
     });
   });
 });
