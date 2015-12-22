@@ -17,7 +17,7 @@
   </div>
 
   <div class="container">
-
+    <br>
     <section>
       <h4 class="thin">
         Animaciones
@@ -123,14 +123,96 @@ focus: function(id, animation, speed){
         <li><b>Velocidad</b>, a elegir entre las predefinidas: <i>slow</i>, <i>normal</i> (default) y <i>fast</i></li>
       </ol>
       <small>Más sobre velocidad en <b>CSS Helpers</b></small>
+
+
+
+      <br>
+      <br>
+
+      <h5>
+        goAndHide(node, animation, speed);
+      </h5>
       <p>
-
+        El método goAndHide() es igual que el método anterior, con una sola diferencia. Cuando acaba la animación,
+        el elemento animado <b>desaparece</b>. Esto puede resultar interesante en animaciones de salida de pantalla.
+        Seguimos el sistema explicado (crear controlador / ruta y acción en el para recibir el evento) para utilizar
+        el método. Mostramos el ejemplo anterior adaptado:
       </p>
-      <blockquote>
 
+
+      <blockquote>
+        <pre>
+focusHide: function(id, animation, speed){
+  id = '#' + id;
+  <b>this.Animate.goAndHide(id,animation,speed);</b>
+}
+        </pre>
       </blockquote>
+
+      <h5 class="thin">
+        Demo
+      </h5>
+      <p>
+        Lanzamos la acción 'focusHide' al hacer click sobre los elementos:
+      </p>
+      <div class="row">
+        <div class="col s6 m3 center-align">
+          <i id="services-add2" class="large material-icons red-text text-accent-4"
+          {{action 'focusHide' 'services-add2' 'bounce' 'slow'}}>input</i>
+          <p>
+            Bote lento (slow bounce)
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-query2" class="large material-icons indigo-text text-darken-4"
+          {{action 'focusHide' 'services-query2' 'shake' 'fast'}}>invert_colors</i>
+          <p>
+            Meneo rápido (fast shake)
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-identity2" class="large material-icons green-text text-darken-4"
+          {{action 'focusHide' 'services-identity2' 'flash'}}>info_outline</i>
+          <p>
+            Un Flash
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-media2" class="large material-icons"
+          {{action 'focusHide' 'services-media2' 'tada' 'slow'}}>label</i>
+          <p>
+            Tachán!
+          </p>
+        </div>
+      </div>
+
+      <blockquote>
+        <pre>
+&lt;div class="col s6 m3 center-align">
+  &lt;i id="services-add2" class="large material-icons red-text text-accent-4"
+  &#123;{action 'focusHide' 'services-add2' 'bounce' 'slow'}}>add&lt;/i>
+  &lt;p>
+    Bote lento (slow bounce)
+  &lt;/p>
+&lt;/div>
+        </pre>
+      </blockquote>
+      <p>
+        Como se ve, seguimos los mismos pasos para interactuar con hacer llegar la interacción al receptor
+        de la acción en el controlador/ruta.
+      </p>
+
     </section>
 
+    <br>
+    <br>
+    <br>
+    <div class="divider">
+
+    </div>
+    <div class="divider">
+
+    </div>
 
     <section>
       <h4 class="thin">
