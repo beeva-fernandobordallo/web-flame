@@ -6,7 +6,7 @@
         </h1>
     </div>
   </div>
-  <div class="amber darken-3">
+  <div class="amber darken-3 z-depth-1">
     <section class="center">
       <div class="containerthin" style="margin: 0; padding:15px 0;">
         <h6 class="header thin">
@@ -17,6 +17,175 @@
   </div>
 
   <div class="container">
+
+    <section>
+      <h4 class="thin">
+        Animaciones
+      </h4>
+      <p>
+        El servicio 'Animate' te ofrece métodos sencillos con los que animar elementos.
+        Pensado para uso de animaciones de enfoque (focus, avisos, ...) y transiciones de página. Todas las animaciones
+        disponibles puedes encontrarlas en la web y el github de Animate.css (<a href="https://github.com/daneden/animate.css" target="_blank">docs</a>).
+      </p>
+      <h5>
+        go(node, animation, speed);
+      </h5>
+      <p>
+        El método go() resulta especialmente útil para lanzar animaciones de énfasis. Recibe el
+        ID del elemento a animar, la animación a utilizar y la velocidad de la misma. Estas animaciones
+        se utilizan en caso de recibir una acción por parte del usuario o en cas de querer advertirle
+        de que algo ha cambiado. Los cambios y eventos de la interfaz y datos pasan por el controlador de
+        la ruta, haciendo de él el mejor sitio para acceder al servicio.
+      </p>
+      <p>
+        Crearíamos un controlador para la ruta, en caso de no tener uno creado ya, con el generador de ember:
+        <blockquote>
+        <pre>
+ember g controller nombre_ruta
+        </pre>
+        </blockquote>
+        Y escribiríamos una acción, dentro del hash 'actions', a la que se llamaría desde el template de la ruta.
+        Este sistema es útil cuando se quiere reaccionar ante un acciones del usuario. Sin embargo, las acciones
+        en ember 'burbujean' y vimos conveniente hacer de la acción de <i>énfasis</i> de manera genérica.
+      </p>
+      <p>
+        En el apartado de {{link-to 'rutas' 'v1.es.ruta-base'}} podréis ver todas las acciones genéricas dispuestas
+        en la applicationRoute (padre de todas las rutas). Aquí podeis ver la acción <b>focus</b>:
+      </p>
+
+
+      <blockquote>
+        <pre>
+focus: function(id, animation, speed){
+  id = '#' + id;
+  <b>this.Animate.go(id,animation,speed);</b>
+}
+        </pre>
+      </blockquote>
+
+      <h5 class="thin">
+        Demo
+      </h5>
+      <p>
+        Lanzamos la acción 'focus' al hacer click sobre los elementos:
+      </p>
+      <div class="row">
+        <div class="col s6 m3 center-align">
+          <i id="services-add" class="large material-icons red-text text-accent-4"
+          {{action 'focus' 'services-add' 'bounce' 'slow'}}>add</i>
+          <p>
+            Bote lento (slow bounce)
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-query" class="large material-icons indigo-text text-darken-4"
+          {{action 'focus' 'services-query' 'shake' 'fast'}}>query_builder</i>
+          <p>
+            Meneo rápido (fast shake)
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-identity" class="large material-icons green-text text-darken-4"
+          {{action 'focus' 'services-identity' 'flash'}}>perm_identity</i>
+          <p>
+            Un Flash
+          </p>
+        </div>
+        <div class="col s6 m3 center-align">
+          <i id="services-media" class="large material-icons"
+          {{action 'focus' 'services-media' 'tada' 'slow'}}>perm_media</i>
+          <p>
+            Tachán!
+          </p>
+        </div>
+      </div>
+
+      <blockquote>
+        <pre>
+&lt;div class="col s6 m3 center-align">
+  &lt;i id="services-add" class="large material-icons red-text text-accent-4"
+  &#123;{action 'focus' 'services-add' 'bounce' 'slow'}}>add&lt;/i>
+  &lt;p>
+    Bote lento (slow bounce)
+  &lt;/p>
+&lt;/div>
+        </pre>
+      </blockquote>
+      <p>
+        En primer lugar <b>damos un ID al elemento que vamos a animar</b>. Hecho esto, llamamos a la
+        acción 'focus' al hacer click sobre el mismo (el punto de acción del usuario puede ser otro, por supuesto).
+        Siguiendo la sintaxis del <i>action helper</i> de ember, en primer lugar nombramos la acción y a continuación
+        los parámetros que este recibe:
+      </p>
+      <ol>
+        <li><b>ID</b> del elemento a animar</li>
+        <li><b>Animación</b> a lanzar (bounce, flash, pulse, shake, ...)</li>
+        <li><b>Velocidad</b>, a elegir entre las predefinidas: <i>slow</i>, <i>normal</i> (default) y <i>fast</i></li>
+      </ol>
+      <small>Más sobre velocidad en <b>CSS Helpers</b></small>
+      <p>
+
+      </p>
+      <blockquote>
+
+      </blockquote>
+    </section>
+
+
+    <section>
+      <h4 class="thin">
+        Notificaciones / Toasts
+      </h4>
+      <p>
+        Utiliza el servicio 'Toast' para mostrar notificaciones al usuario.
+        Las notificaciones mostradas utilizan los diálogos disponibles en el catálogo de componentes de Materialize
+        (<a href="http://materializecss.com/dialogs.html" target="_blank">docs</a>).
+      </p>
+      <p>
+        El servicio es inyectado durante la inicialización en rutas y controladores, ofrenciendo control sobre donde y cuando se lanza las notificaciones.
+        Ejemplos: respuesta a evento capturado en una ruta o respuesta informativa al finalizar un refresh en la página.
+      </p>
+      <p>
+        Uso del serivicio:
+      </p>
+      <blockquote>
+        <pre>
+Toast.addToast(message, displayLength, className, completeCallback);
+        </pre>
+      </blockquote>
+
+      <p>
+        Parámetros:
+        <ol>
+          <li>Message: <i>String</i>, con el mensaje a presentar en la notificación</li>
+          <li>DisplayLength: <i>Number</i>, duración en milisegundos de presencia de la notificación</li>
+          <li>ClassName: <i>String</i>, clase adicional a incluir en el elemento. Opción de materialize: 'rounded'</li>
+          <li>CompleteCallback: <i>Function</i>, ejecutada al esconderse la notificación</li>
+        </ol>
+      </p>
+
+      <h5 class="thin">
+        Demo
+      </h5>
+      <p>
+        <a class="waves-effect waves-light btn red darken-2" {{action 'launchToast'}}>Lanza Notificación</a>
+      </p>
+      <p>
+        Este botón lanza una <i>acción</i> de Ember que es recibida en una ruta,
+        encargada de lanzar el siguiente commando:
+      </p>
+      <blockquote>
+        <pre>
+this.Toast.addToast('¡Has lanzado una notificación! (3 segundos)', 3000, 'rounded');
+        </pre>
+      </blockquote>
+      <p>
+        Es más común lanzar notificaciones como final de un método del controlador o como resultado de un
+        cambio observado, bien en un controlador, ruta, servicio, ... Por lo que no se ha incluido una acción
+        en la applicationRoute para cubrir esta necesidad tan puntual.
+      </p>
+    </section>
+
     <section>
       <h4 class="thin">
         Gestión de Datos
@@ -38,72 +207,6 @@
       </p>
       <blockquote>
 
-      </blockquote>
-    </section>
-    <section>
-      <h4 class="thin">
-        Animaciones
-      </h4>
-      <p>
-        <i>TODO</i>
-      </p>
-      <blockquote>
-
-      </blockquote>
-      <p>
-
-      </p>
-      <h5 class="thin">
-        Demo
-      </h5>
-      <p>
-
-      </p>
-      <blockquote>
-
-      </blockquote>
-    </section>
-    <section>
-      <h4 class="thin">
-        Notificaciones / Toasts
-      </h4>
-      <p>
-        Utiliza el servicio 'Toast' para mostrar notificaciones al usuario.
-        Las notificaciones mostradas utilizan los diálogos disponibles en el catálogo de componentes de Materialize
-        (<a href="http://materializecss.com/dialogs.html" target="_blank">docs</a>).
-      </p>
-      <p>
-        El servicio es inyectado durante la inicialización en rutas y controladores, ofrenciendo control sobre donde y cuando se lanza las notificaciones.
-        Ejemplos: respuesta a evento capturado en una ruta o respuesta informativa al finalizar un refresh en la página.
-      </p>
-      <p>
-        Uso del serivicio:
-      </p>
-      <blockquote>
-        Toast.addToast(message, displayLength, className, completeCallback);
-      </blockquote>
-
-      <p>
-        Parámetros:
-        <ol>
-          <li>Message: <i>String</i>, con el mensaje a presentar en la notificación</li>
-          <li>DisplayLength: <i>Number</i>, duración en milisegundos de presencia de la notificación</li>
-          <li>ClassName: <i>String</i>, clase adicional a incluir en el elemento. Opción de materialize: 'rounded'</li>
-          <li>CompleteCallback: <i>Function</i>, ejecutada al esconderse la notificación</li>
-        </ol>
-      </p>
-
-      <h5 class="thin">
-        Demo
-      </h5>
-      <p>
-        <a class="waves-effect waves-light btn red darken-2" {{action 'launchToast'}}>Lanza Notificación</a>
-      </p>
-      <blockquote>
-        Este botón lanza una <i>acción</i> de Ember que es recibida en una ruta, encargada de lanzar el siguiente commando:
-        <br>
-        <br>
-        this.Toast.addToast('¡Has lanzado una notificación! (3 segundos)', 3000, 'rounded');
       </blockquote>
     </section>
   </div>

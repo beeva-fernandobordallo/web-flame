@@ -49,7 +49,7 @@ export default Ember.Route.extend({
 
   actions: {
         didTransition: function() {
-          this.Animate.entryPage('.page', 'zoomInDown');
+          this.Animate.entryPage('.page', 'fadeInUp');
           $('.button-collapse').sideNav('hide');
           $('#sidenav-overlay').remove();
         },

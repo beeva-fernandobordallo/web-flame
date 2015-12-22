@@ -21,6 +21,7 @@ Router.map(function() {
       this.route('proyecto');
       this.route('setup');
       this.route('mock-data');
+      this.route('css');
     });
   });
 });

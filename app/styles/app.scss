@@ -10,7 +10,55 @@ p{
 }
 
 
+// PRE AND BLOCKQUOTE FIX
+pre{
+  width: 100%;
+}
+
+@media (max-width: 755px) {
+  blockquote{
+    width: 600px;
+  }
+ }
+
+@media (max-width: 648px) {
+ blockquote{
+   width: 500px;
+ }
+}
+
+@media (max-width: 548px) {
+ blockquote{
+   width: 450px;
+ }
+}
+
+@media (max-width: 498px) {
+ blockquote{
+   width: 400px;
+ }
+}
+
+@media (max-width: 438px) {
+ blockquote{
+   width: 350px;
+ }
+}
+
+@media (max-width: 388px) {
+ blockquote{
+   width: 290px;
+ }
+}
+
+
 //
+#slide-out{
+  overflow-y: hidden;
+}
+#slide-out:hover{
+  overflow-y: scroll;
+}
 
 @media (min-width: 993px) {
   .main-container{
