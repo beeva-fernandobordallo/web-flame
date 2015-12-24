@@ -158,30 +158,30 @@ focusHide: function(id, animation, speed){
       <div class="row">
         <div class="col s6 m3 center-align">
           <i id="services-add2" class="large material-icons red-text text-accent-4"
-          {{action 'focusHide' 'services-add2' 'bounce' 'slow'}}>input</i>
+          {{action 'focusHide' 'services-add2' 'pulse' 'slow'}}>input</i>
           <p>
-            Bote lento (slow bounce)
+            Pulsación lenta (slow pulse)
           </p>
         </div>
         <div class="col s6 m3 center-align">
           <i id="services-query2" class="large material-icons indigo-text text-darken-4"
-          {{action 'focusHide' 'services-query2' 'shake' 'fast'}}>invert_colors</i>
+          {{action 'focusHide' 'services-query2' 'rubberBand' 'fast'}}>invert_colors</i>
           <p>
-            Meneo rápido (fast shake)
+            Goma elástica (rubberBand)
           </p>
         </div>
         <div class="col s6 m3 center-align">
           <i id="services-identity2" class="large material-icons green-text text-darken-4"
-          {{action 'focusHide' 'services-identity2' 'flash'}}>info_outline</i>
+          {{action 'focusHide' 'services-identity2' 'swing'}}>info_outline</i>
           <p>
-            Un Flash
+            Balanceo
           </p>
         </div>
         <div class="col s6 m3 center-align">
-          <i id="services-media2" class="large material-icons"
-          {{action 'focusHide' 'services-media2' 'tada' 'slow'}}>label</i>
+          <i id="services-media2" class="large material-icons amber-text"
+          {{action 'focusHide' 'services-media2' 'jello' 'slow'}}>label</i>
           <p>
-            Tachán!
+            Jelatina!
           </p>
         </div>
       </div>
@@ -202,6 +202,64 @@ focusHide: function(id, animation, speed){
         de la acción en el controlador/ruta.
       </p>
 
+
+      <br>
+      <br>
+
+      <h5>
+        entryPage(nodeSelector, animation, speed);
+      </h5>
+      <p>
+        El método entryPage() es perfecto para lanzar una animación de entrada de página
+        después de una transición entre rutas. Para lanzar la animación, necesita recibir el selector
+        del nodo a animar (preferiblemente el nodo contenedor de la página que 'entra'), la animación a lanzar
+        y la velocidad de la animación.
+      </p>
+
+      <p>
+        Para facilitar el uso de las transiciones de página, hemos definido en la ruta base.js (de la que recomendamos
+        extender tus rutas) las acciones willTransition y didTransition. La acción <b>didTransition</b> es la encargada
+        de utilizar este método de manera óptima. Vemos a continuación la implementación de la acción en el la ruta base.js,
+        la cual usamos de forma genérica:
+      </p>
+
+      <blockquote>
+        <pre>
+didTransition: function() {
+  this.Animate.entryPage('.page', 'fadeInUp', 'normal');
+}
+        </pre>
+      </blockquote>
+      <br>
+      <br>
+
+      <h5>
+        exitPage(nodeSelector, animation, transition, speed);
+      </h5>
+      <p>
+        El método exitPage() trabaja en conjunto con la animación entryPage, bloqueando la
+        transición lanzada entre rutas hasta que la animación de salida ha terminado. La mayor diferencia que podemos
+        encontrar entre entryPage y exitPage es el parámetro <i>transición</i>. Este método necesita recibir
+        el objeto de la transición lanzada para poder controlarla (parar y reinicar la transición en el
+        momento adecuado).
+      </p>
+
+      <p>
+        Para facilitar el uso de las transiciones de página, hemos definido en la ruta base.js (de la que recomendamos
+        extender tus rutas) las acciones willTransition y didTransition. La acción <b>willTransition</b> es la encargada
+        de utilizar este método de manera óptima. Vemos a continuación la implementación de la acción en el la ruta base.js,
+        la cual usamos de forma genérica:
+      </p>
+
+      <blockquote>
+        <pre>
+willTransition: function(transition){
+  this.Animate.exitPage('.page','fadeOut', transition, 'fast');
+}
+        </pre>
+      </blockquote>
+
+      <small><b>Los dos ejemplos aquí mostrados son los utilizados a lo largo de toda esta web (fadeOut para salidas y fadeInUp para entradas).</b></small>
     </section>
 
     <br>
@@ -267,6 +325,16 @@ this.Toast.addToast('¡Has lanzado una notificación! (3 segundos)', 3000, 'roun
         en la applicationRoute para cubrir esta necesidad tan puntual.
       </p>
     </section>
+
+    <br>
+    <br>
+    <br>
+    <div class="divider">
+
+    </div>
+    <div class="divider">
+
+    </div>
 
     <section>
       <h4 class="thin">
