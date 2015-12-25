@@ -81,10 +81,10 @@ export default Base.extend({
       <p>
         La ruta base viene con una configuración básica por defecto. Esta es:
         <ol>
-          <li><b>Autenticación</b> no activada</li>
-          <li>Nivel de <b>seguridad</b> nulo</li>
-          <li>Transición de entrada: fadeInRightBig</li>
-          <li>Transición de salida: fadeOutRightBig</li>
+          <li><b>Autenticación</b> no activada: 'false'</li>
+          <li>Nivel de <b>seguridad</b> nulo: 'null'</li>
+          <li>Transición de entrada: 'fadeInRightBig'</li>
+          <li>Transición de salida: 'fadeOutRightBig'</li>
         </ol>
       </p>
       <p>
@@ -156,22 +156,101 @@ export default Base.extend({
 
     <section>
       <h4 class="thin">
-        ApplicationRoute (route ... yo soy tu padre!)
+        ApplicationRoute (Route ... yo soy tu padre!)
       </h4>
       <p>
-        <i>TODO</i>
+        La applicationRoute, ubicada en la carpeta 'routes' con el nombre <i>application.js</i>,
+        es la primera ruta llamada cuando se inicia la applicación (o se accede a ella). <i>Solo se llama
+        una vez a esta ruta</i>, por lo tanto utilizamos los hooks de esta ruta para inicializar la applicación
+        y hacer verificaciones de entrada.
+      </p>
+      <br>
+      <h5 class="thin">Inicialización</h5>
+      <p>
+        En primer lugar, se lanza el hook 'beforeModel' de la ruta. En el empezamos por configurar
+        el idioma de la app en función de la configuración local del usuario:
       </p>
       <blockquote>
-
+        <pre>
+this.set('i18n.locale', navigator.language || navigator.userLanguage || 'es');
+        </pre>
       </blockquote>
       <p>
-
+        En caso de no encontrar una configuración local, se caería al valor por defecto. En este caso, Español (es).
       </p>
+      <p>
+        A continuación utilizamos el método de inicialización del servicio de datos (datapoint service), encargado
+        de configurar los puntos de acceso a datos y comprobar si existe un usuario autenticado. Como valores predeterminados,
+        guardamos referencias a los siguientes puntos de datos:
+      </p>
+      <ol>
+        <li>Firebase Root: <i>baseRef</i></li>
+        <li>Nodo comunitario: <i>communityRef</i></li>
+        <li>Nodo de datos publicos: <i>publicRef</i></li>
+        <li>Nodo de presencia (usuarios conectados): <i>presenceRef</i></li>
+      </ol>
+      <blockquote>
+<pre>
+this.set('baseRef', new Firebase(this.get('firebase')));
+this.set('communityRef', new Firebase(this.get('firebase') + '/community'));
+this.set('publicRef', new Firebase(this.get('firebase') + '/public'));
+this.set('presentUsersRef', new Firebase(this.get('firebase') + '/presence'));
+</pre>
+      </blockquote>
+      <p>
+        En caso de encontrar a un usuario autenticado, se guardará también una referencia al nodo de datos del usuario, <i>userRef</i>:
+      </p>
+      <blockquote>
+        <pre>
+this.set('userRef', new Firebase(userUrl));
+        </pre>
+      </blockquote>
+      <p>
+        Adicionalmente, se realizará una comprobración de 'perfil mínimo'. En caso de no tener datos del usuario, se
+        guardará una configuración básica de perfil en el nodo privado del usuario.
+      </p>
+      <p>
+        <b>Estas referencias a los puntos de datos en Firebase serán de gran ayuda durante el desarrollo ya que serán las
+        referencias utilizadas por los métodos CRUD definidos en el servicio de datos (datapoint).</b>
+        <br>
+        <small>Para leer más información sobre el servicio de datos, vaya los {{link-to 'docs de servicios' 'v1.es.servicios'}}</small>
+      </p>
+      <br>
+      <h5 class="thin">Acciones Genéricas</h5>
+      <p>
+        Con el fin de simplificar la interacción con las funcionalidades genéricas del stack
+        disponemos de una serie de acciones genéricas, implementadas en la applicationRoute.
+      </p>
+      <h5>signIn(provider)</h5>
+      <p>
+        La accion genérica 'signIn' requiere de un solo parámetro: 'provider'. Se encarga de autenticar
+        al usuario con Firebase a través del proveedor indicado.
+        Este Parámetro puede ser uno todos los que ponen a nuestra disposición los miembres de Firebase
+        en su API Javascript:
+      </p>
+      <ol>
+        <li>github</li>
+        <li>facebook</li>
+        <li>twitter</li>
+        <li>google</li>
+      </ol>
+      <p>
+        Recordar que cualquier autenticación con una red social requiere de una <b>configuración previa</b>
+        de la cuenta de firebase, en la que se active la autenticación con la red definida.
+        Puedes encontrar las guías de AUTENTICACIÓN de firebase <a href="https://www.firebase.com/docs/web/guide/user-auth.html#section-providers" target="_blank">AQUÍ</a>,
+        en la sección de proveedores.
+      </p>
+      <p>
+        El código de la acción genérica utiliza el método 'signIn' definido en el servicio de datos (fácil de utilizar desde cualquier otro punto de la aplicación):
+      </p>
+      <blockquote>
+        <pre>
+signIn: function(provider) {
+  this.Data.signIn(provider);
+}
+        </pre>
+      </blockquote>
     </section>
-
-
-
-
   </div>
 
   {{outlet}}
