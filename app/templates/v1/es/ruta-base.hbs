@@ -62,6 +62,31 @@ export default Base.extend({
         en la misma altura que la ruta base, solo habrás de utilizar <i>'./base'</i>. Si está anidada, tendrás que añadir <i>'../'</i> por cada
         nivel de profundidad alcanzado. Sencillo, ¿verdad?
       </p>
+      <p>
+        <b>Adventencia:</b> ¡Hay un detalle fundamental sin el cual la ruta recién creada NO FUNCIONARÁ!
+        Dado que se ha configurado el servicio de animación de entrada y salida de páginas para utilizar
+        un elemento con clase 'page', si este no existe en el template de la ruta creada lo único que veremos
+        será una pantalla en blanco y la app se bloqueará.
+      </p>
+      <p>
+        Pero no temas, tiene una solución muy sencilla. Cuando generas una nueva ruta, se crearán un archivo
+        en 'routes' y otro en 'templates'. El segundo contendrá una única linea de código:
+      </p>
+      <blockquote>
+        <pre>
+&#123;{outlet}}
+        </pre>
+      </blockquote>
+      <p>
+        Reemplaza este código por el siguiente:
+      </p>
+      <blockquote>
+        <pre>
+&lt;div class="page">
+  &#123;{outlet}}
+&lt;/div>
+        </pre>
+      </blockquote>
     </section>
 
     <br>
@@ -247,6 +272,58 @@ this.set('userRef', new Firebase(userUrl));
         <pre>
 signIn: function(provider) {
   this.Data.signIn(provider);
+}
+        </pre>
+      </blockquote>
+      <h5>signOut()</h5>
+      <p>
+        La accion genérica 'signOut' no requiere de ningún parámetro. Deslogará a cualquier usuario actualmente
+        autenticado, independientemente del proveedor utilizado.
+      </p>
+      <p>
+        El código de la acción genérica utiliza el método 'signOut' definido en el servicio de datos (fácil de utilizar desde cualquier otro punto de la aplicación):
+      </p>
+      <blockquote>
+        <pre>
+signOut: function() {
+  this.Data.signOut();
+}
+        </pre>
+      </blockquote>
+      <h5>redirectHome()</h5>
+      <p>
+        Acción común a casi todas las aplicaciones, disparada cuando un usuario pulsa el logo de la
+        app, cabecera u otro punto considerado de regreso al acceso principal.
+      </p>
+      <p>
+        El código de la acción genérica 'redirectHome' también cierra el SideNav génerico que
+        utilizamos como parte de la plantilla inicial (opcional):
+      </p>
+      <blockquote>
+        <pre>
+redirectHome: function(){
+  this.transitionTo('index');
+  // Hide sideNav
+  $('.button-collapse').sideNav('hide');
+}
+        </pre>
+      </blockquote>
+      <h5>setLocale(locale)</h5>
+      <p>
+        Esta acción modifica el idioma utilizado por el servicio de traducción, adaptando
+        los contenidos de la página al idioma seteado.
+      </p>
+      <p>
+        Recibe como parámetro la abreviaciónd el idioma a utilizar ('en', 'es', 'ger', ...). Dejamos abierta
+        la opción de lanzar una notifación de aviso al usuario con el cambio de idioma, en la que se
+        presentará un string definido en los archivos de traducción. En nuestro caso, utilizamos el string
+        'languageChange', ubicado dentro del bloque de 'label's. 
+      </p>
+      <blockquote>
+        <pre>
+setLocale: function (locale) {
+  this.set('i18n.locale', locale);
+  // this.Toast.addToast(this.get('i18n').t('label.languageChange'), 2000);
 }
         </pre>
       </blockquote>
