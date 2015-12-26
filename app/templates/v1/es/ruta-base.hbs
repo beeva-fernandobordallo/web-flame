@@ -314,16 +314,37 @@ redirectHome: function(){
         los contenidos de la página al idioma seteado.
       </p>
       <p>
-        Recibe como parámetro la abreviaciónd el idioma a utilizar ('en', 'es', 'ger', ...). Dejamos abierta
+        Recibe como parámetro la abreviación del idioma a utilizar ('en', 'es', 'ger', ...). Dejamos abierta
         la opción de lanzar una notifación de aviso al usuario con el cambio de idioma, en la que se
         presentará un string definido en los archivos de traducción. En nuestro caso, utilizamos el string
-        'languageChange', ubicado dentro del bloque de 'label's. 
+        'languageChange', ubicado dentro del bloque de 'label's.
       </p>
       <blockquote>
         <pre>
 setLocale: function (locale) {
   this.set('i18n.locale', locale);
   // this.Toast.addToast(this.get('i18n').t('label.languageChange'), 2000);
+}
+        </pre>
+      </blockquote>
+      <h5>focus(id, animation, speed)</h5>
+      <p>
+        Utilizamos esta acción genérica para lanzar una animación de énfasis. Basada en el uso del método
+        'go()', encontrado en el serivicio de animación (<i>Animate</i>).
+      </p>
+      <p>
+        Recibe como parámetros:
+      </p>
+      <ol>
+        <li><b>ID</b> del nodo a animar</li>
+        <li><b>Animación</b> a utilizar (puedes ver la lista de animaciones disponibles en la web de <a href="https://daneden.github.io/animate.css/">animate.css</a> o en los cheatsheets)</li>
+        <li><b>Velocidad</b> de la animación. A elegir entre: <i>'slow', 'normal' y 'fast'</i></li>
+      </ol>
+      <blockquote>
+        <pre>
+focus: function(id, animation, speed){
+  id = '#' + id;
+  this.Animate.go(id,animation,speed);
 }
         </pre>
       </blockquote>
