@@ -1,0 +1,104 @@
+<div class="page">
+  <div class="amber lighten-2">
+    <div class="container" style="padding-bottom:30px">
+        <h1 id="jumpTitle" class="header thin" {{action 'focus' 'jumpTitle' 'bounce' 'slow'}} style="padding-top:60px">
+          <i>FlameStack</i>
+        </h1>
+        <div class="row center">
+          <h4 class="header thin">
+            A full stack of awesome technologies &amp; a set of tools to make webApp development fast and smooth.
+          </h4>
+        </div>
+        <br>
+        <br>
+        <div class="center">
+          {{#link-to 'v1.es.primeros-pasos'}}<a class="waves-effect waves-light btn-large lime accent-4">Get started!</a>{{/link-to}}
+        </div>
+    </div>
+  </div>
+  <div class="amber darken-3">
+    <section class="center">
+      <h5 class="thin" style="margin: 0; padding:15px 0;">
+        Join the project on Github.
+        <small>
+          <a class="black-text" href="https://github.com/beeva-fernandobordallo/ember-full-skeleton" target="_blank">
+            <u><i>You are all very welcome</i></u>
+          </a>
+        </small>
+      </h5>
+    </section>
+  </div>
+
+  <div class="container">
+    <section>
+      <br>
+      <div class="row">
+        <div class="col m6 s12">
+          <div class="flow-text">
+            Building rich webApps has never been so easy! The power of <b>Ember</b> and the flexibility of <b>Firebase</b>
+            together with rich <i>animations</i> and <i>material design</i> components.
+          </div>
+        </div>
+        <div class="col m6 s12">
+          <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">explicit</i>Ember-cli</div>
+              <div class="collapsible-body">
+                <p>
+                  Ember, CLI tools and the ever-growing addons list offer one of the best (if not the best)
+                  experiences to develop high quality apps. As they say: 'Its a framework for creating ambitious web applications'.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">settings_input_composite</i>Firebase</div>
+              <div class="collapsible-body">
+                <p>
+                  Structure your data with complete freedom, manage access permissions with a couple of lines
+                  of javascript code and deploy apps with ease. A cloud back-end experience you will never forget
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">hearing</i>Animate.css</div>
+              <div class="collapsible-body">
+                <p>
+                  A set of simple 'Just-add-water' CSS animations with which you'll give life to your
+                  projects. Easy to use! (I guess you start to see a pattern here) Works across all devices
+                  and is extremely light weight.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">tab_unselected</i>Materialize</div>
+              <div class="collapsible-body">
+                <p>
+                  Collection of UI components, UI Helpers, responsive grid and tons of fun for the whole Dev-Family.
+                  Don't miss out on this awesome front-end framework and it's Material Design beauty.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">language</i>Language Support</div>
+              <div class="collapsible-body">
+                <p>
+                  Make your apps multilanguage from the first key tap. i18n service offers a simple
+                  interface for translation, both in and out of UI Views.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+</script>
