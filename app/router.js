@@ -23,6 +23,18 @@ Router.map(function() {
       this.route('mock-data');
       this.route('css');
     });
+    this.route('en', function() {
+      this.route('review');
+      this.route('primeros-pasos');
+      this.route('servicios');
+      this.route('ruta-base');
+      this.route('seg-y-auth');
+      this.route('herramientas');
+      this.route('proyecto');
+      this.route('setup');
+      this.route('mock-data');
+      this.route('css');
+    });
   });
   this.route('en');
 });

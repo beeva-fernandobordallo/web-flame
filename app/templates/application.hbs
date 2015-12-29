@@ -6,66 +6,66 @@
       <span class="hide-on-med-and-up">Flame/St</span>
     </div>
   </div>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.review'}}
-      Review
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goReview'}}>
+    <a class="pointer">
+      {{t 'main.review'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.setup'}}
-      Setup
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goSetup'}}>
+    <a class="pointer">
+      {{t 'main.setup'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.primeros-pasos'}}
-      Primeros Pasos
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goFirstSteps'}}>
+    <a class="pointer">
+      {{t 'main.firstSteps'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.servicios'}}
-      Servicios
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goServices'}}>
+    <a class="pointer">
+      {{t 'main.services'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.ruta-base'}}
-      Rutas
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goRoutes'}}>
+    <a class="pointer">
+      {{t 'main.routes'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.seg-y-auth'}}
-      Seguridad
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goSecurity'}}>
+    <a class="pointer">
+      {{t 'main.security'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.css'}}
-      CSS Helpers
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goCss'}}>
+    <a class="pointer">
+      {{t 'main.css'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.mock-data'}}
-      Datos Mock
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goMock'}}>
+    <a class="pointer">
+      {{t 'main.mockData'}}
+    </a>
   </li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.herramientas'}}
-      Herramientas
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goTools'}}>
+    <a class="pointer">
+      {{t 'main.tools'}}
+    </a>
   </li>
   <li class="divider"></li>
-  <li class="sidenav-link" style="padding-bottom: 16px">
-    {{#link-to 'v1.es.proyecto'}}
-      + Proyecto
-    {{/link-to}}
+  <li class="sidenav-link" style="padding-bottom: 16px" {{action 'goMoreProject'}}>
+    <a class="pointer">
+      {{t 'main.moreProject'}}
+    </a>
   </li>
   <li class="divider"></li>
   <li class="sidenav-link" style="padding-bottom: 16px">
     {{#link-to 'en'}}
-      <a class="valign-wrapper"><i class="tiny material-icons">language</i> English</a>
+      <a class="valign-wrapper" {{action 'setLocale' 'en'}}><i class="tiny material-icons">language</i> English</a>
     {{/link-to}}
   </li>
   <li class="sidenav-link" style="padding-bottom: 16px">
     {{#link-to 'index'}}
-      <a class="valign-wrapper"><i class="tiny material-icons">language</i> Castellano</a>
+      <a class="valign-wrapper" {{action 'setLocale' 'es'}}><i class="tiny material-icons">language</i> Castellano</a>
     {{/link-to}}
   </li>
 </ul>
@@ -84,7 +84,7 @@
       <div class="container">
         <div class="row">
           <div class="col s12">
-            <h5 class="white-text">Links de interés</h5>
+            <h5 class="white-text">{{t 'main.links'}}</h5>
             <ul>
               <li>
                 <a class="white-text" href="https://guides.emberjs.com/v2.0.0/" target="_blank">
@@ -92,7 +92,7 @@
                 </a>
               </li>
               <li>
-                - Guias completas de todas las versiones de ember.
+                - {{t 'main.emberGuide'}}.
               </li>
               <li>
                 <a class="white-text" href="http://ember-cli.com/user-guide/" target="_blank">
@@ -100,7 +100,7 @@
                 </a>
               </li>
               <li>
-                - Descubre el poder de Ember-cli. Compilador, scaffolding (generadores), servidor, testing ... Una herramienta de la que no podrás prescindir.
+                - {{t 'main.emberCLIGuide'}}.
               </li>
               <li>
                 <a class="white-text" href="https://www.firebase.com/" target="_blank">
@@ -108,7 +108,7 @@
                 </a>
               </li>
               <li>
-                - Backend cloud sin el que ya no sabría vivir. Autenticación de usuarios en minutos, gestión de acceso a datos con simples reglas y estructuración de datos completamente abierta.
+                - {{t 'main.firebaseGuide'}}.
               </li>
               <li>
                 <a class="white-text" href="https://daneden.github.io/animate.css/" target="_blank">
@@ -116,7 +116,7 @@
                 </a>
               </li>
               <li>
-                - Librería de animaciones ligera con la que dar vida a la web. Entradas triunfales, avisos visuales, brincos y giros, todo unido en un pequeño pack de alegría.
+                - {{t 'main.animateGuide'}}.
               </li>
               <li>
                 <a class="white-text" href="http://materializecss.com/" target="_blank">
@@ -124,15 +124,14 @@
                 </a>
               </li>
               <li>
-                - Nunca ha sido tan facil utilizar material design en tus proyectos. Este framework responsivo tiene la gran ventaja de estar documentado de maravilla. Investiga sus guias y prueba sus componentes.
+                - {{t 'main.materializeGuide'}}.
               </li>
             </ul>
           </div>
           <div class="col s12">
-            <h5 class="white-text">Creceremos Juntos</h5>
+            <h5 class="white-text">{{t 'main.growTogether'}}</h5>
             <p class="grey-text text-lighten-4 flow-text">
-              Con la comunidad OpenSource queremos hacer del FlameStack una solución versatil para tus prototipos y proyectos de menor alcance.
-              Documentación, correción, refactorización de código, incorporación de nuevas funcionalidades ... La puerta está abierta para todo el que quiera formar parte.
+              {{t 'main.growTogetherText'}}.
             </p>
 
 
@@ -141,7 +140,7 @@
       </div>
       <div class="footer-copyright">
         <div class="container">
-        Glued together by <a class="orange-text text-lighten-3" href="https://github.com/beeva-fernandobordallo" target="_blank">Fernando Bordallo</a>.
+          {{t 'main.gluedBy'}} <a class="orange-text text-lighten-3" href="https://github.com/beeva-fernandobordallo" target="_blank">Fernando Bordallo</a>.
         </div>
       </div>
     </footer>

@@ -1,0 +1,355 @@
+<div class="page">
+  <div class="amber lighten-2">
+    <div class="container" style="padding-bottom:8px">
+        <h1 id="jumpTitle" class="header thin" {{action 'focus' 'jumpTitle' 'bounce' 'slow'}} style="padding-top:60px">
+          <i>Rutas</i>
+        </h1>
+    </div>
+  </div>
+  <div class="amber darken-3 z-depth-1">
+    <section class="center">
+      <div class="containerthin" style="margin: 0; padding:15px 0;">
+        <h6 class="header thin">
+          Ruta genérica utilizada para automatizar procesos de verificación de seguridad en acceso a rutas y controlar las animaciones de transición entre páginas.
+        </h6>
+      </div>
+    </section>
+  </div>
+
+  <div class="container">
+    <section>
+      <h4 class="thin">
+        Ruta Base.js
+      </h4>
+      <p>
+        Las rutas forman la base fundamental de la filosofía de Ember. Una ruta, una URL, un modelo. En un
+        intento de facilitar la vida al desarrollador, hemos creado una ruta de la que poder extender cualquier
+        ruta que requiera de:
+        <ol>
+          <li>Una <b>transición de entrada/salida</b> genérica de la applicación</li>
+          <li><b>Autenticación</b> o un <b>nivel de seguridad</b> (rol) concreto</li>
+        </ol>
+      </p>
+      <p>
+        Extender una ruta de esta es muy sencillo y el código a utilizar solo depende de la 'profundidad'
+        de la ruta. ¿Que queremos decir con esto? Muy fácil. Si tu ruta se encuentra en la carpeta <i>'routes'</i>,
+        sin estár anidada, utilizarás el siguiente código
+      </p>
+      <blockquote>
+        <pre>
+import Base from './base';
+
+export default Base.extend({
+});
+        </pre>
+      </blockquote>
+      <p>
+        Sin embargo, si tu ruta está anidada habrás de localizar el archivo base.js de manera distinta. Por ejemplo,
+        si tu ruta se encuentra en la carpeta <i>'routes/users/dataRoutes/'</i>, el código para extender tu ruta de la base
+        sería el siguiente
+      </p>
+      <blockquote>
+        <pre>
+import Base from './../../base';
+
+export default Base.extend({
+});
+        </pre>
+      </blockquote>
+
+      <p>
+        Como ves, la diferencia radica solo en <i>import Base from './../../base'</i>. Si tu archivo de ruta ser encuentra
+        en la misma altura que la ruta base, solo habrás de utilizar <i>'./base'</i>. Si está anidada, tendrás que añadir <i>'../'</i> por cada
+        nivel de profundidad alcanzado. Sencillo, ¿verdad?
+      </p>
+      <p>
+        <b>Adventencia:</b> ¡Hay un detalle fundamental sin el cual la ruta recién creada NO FUNCIONARÁ!
+        Dado que se ha configurado el servicio de animación de entrada y salida de páginas para utilizar
+        un elemento con clase 'page', si este no existe en el template de la ruta creada lo único que veremos
+        será una pantalla en blanco y la app se bloqueará.
+      </p>
+      <p>
+        Pero no temas, tiene una solución muy sencilla. Cuando generas una nueva ruta, se crearán un archivo
+        en 'routes' y otro en 'templates'. El segundo contendrá una única linea de código:
+      </p>
+      <blockquote>
+        <pre>
+&#123;{outlet}}
+        </pre>
+      </blockquote>
+      <p>
+        Reemplaza este código por el siguiente:
+      </p>
+      <blockquote>
+        <pre>
+&lt;div class="page">
+  &#123;{outlet}}
+&lt;/div>
+        </pre>
+      </blockquote>
+    </section>
+
+    <br>
+    <br>
+    <br>
+    <div class="divider">
+
+    </div>
+    <div class="divider">
+
+    </div>
+
+    <section>
+      <h4 class="thin">
+        Configuración de ruta
+      </h4>
+      <p>
+        La ruta base viene con una configuración básica por defecto. Esta es:
+        <ol>
+          <li><b>Autenticación</b> no activada: 'false'</li>
+          <li>Nivel de <b>seguridad</b> nulo: 'null'</li>
+          <li>Transición de entrada: 'fadeInRightBig'</li>
+          <li>Transición de salida: 'fadeOutRightBig'</li>
+        </ol>
+      </p>
+      <p>
+        Sin embargo, estos comportamientos pueden ser parametrizados en la ruta con un par del
+        propiedades o sobreescribiendo los métodos/acciones que los implementan.
+      </p>
+      <p>
+        Vemos un ejemplo de una ruta que extiende de la ruta base y ha sido configurada para
+        exigir login al usuario, tener un nivel de seguridad de <i>2</i> y que al entrar o salir de la
+        página, se lance una animación de <i>fade</i> básica.
+      </p>
+      <blockquote>
+        <pre>
+import Base from './base';
+
+export default Base.extend({
+  auth: true,
+  securityLevel: 2,
+
+  beforeModel: function(){
+    return this._super().then(function(){
+      // Run this code after the authentication and security Level checks have completed
+    });
+  },
+
+  actions: {
+      didTransition: function() {
+        this.Animate.entryPage('.page', 'fadeIn');
+      },
+
+      willTransition: function(transition){
+        this.Animate.exitPage('.page','fadeOut', transition);
+      }
+  }
+});
+        </pre>
+      </blockquote>
+      <p>
+        Desde arriba hasta abajo vemos:
+        <ul>
+          <li><b>Propiedad auth</b>: {Boolean}. Si <i>true</i>, la ruta comprueba que el usuario
+          esté correctamente autenticado. De lo contrario (<i>false</i>), no se exigirá al usuario
+          login previo y se obviará la siguiente propiedad.</li>
+          <li><b>Propiedad securityLevel</b>: {Number}. Si configurado a <i>null</i> no realizará ninguna
+          verificación del nivel de usuario logado. De lo contrario, podrá tomar valores numéricos mayores o iguales
+          a cero.</li>
+          <li><b>beforeModel</b>: La ruta base implementa los metodos de verificación de login
+          y nivel de seguridad en el beforeModel, envolviendo todo el proceso en una promesa. Esto
+          nos permite introducir código, antes durante y después de la llamada. En el ejemplo, presentamos
+          el lugar indicado para introducir código a ejecutar después de las verificaciones de seguridad.</li>
+          <li><b>actions Hash</b>: En el actionsHash sobreescribimos los métodos didTransition y willTransition,
+          encargadas de lanzar las animaciones de entrada y salida de página.
+          <br>
+          <br>
+          <small>Para más información sobre
+          animaciones de transición, lea los docs sobre el {{link-to 'serivicio de animaciones' 'v1.es.servicios'}}</small></li>
+        </ul>
+      </p>
+    </section>
+
+    <br>
+    <br>
+    <div class="divider">
+
+    </div>
+    <div class="divider">
+
+    </div>
+
+    <section>
+      <h4 class="thin">
+        ApplicationRoute (Route ... yo soy tu padre!)
+      </h4>
+      <p>
+        La applicationRoute, ubicada en la carpeta 'routes' con el nombre <i>application.js</i>,
+        es la primera ruta llamada cuando se inicia la applicación (o se accede a ella). <i>Solo se llama
+        una vez a esta ruta</i>, por lo tanto utilizamos los hooks de esta ruta para inicializar la applicación
+        y hacer verificaciones de entrada.
+      </p>
+      <br>
+      <h5 class="thin">Inicialización</h5>
+      <p>
+        En primer lugar, se lanza el hook 'beforeModel' de la ruta. En el empezamos por configurar
+        el idioma de la app en función de la configuración local del usuario:
+      </p>
+      <blockquote>
+        <pre>
+this.set('i18n.locale', navigator.language || navigator.userLanguage || 'es');
+        </pre>
+      </blockquote>
+      <p>
+        En caso de no encontrar una configuración local, se caería al valor por defecto. En este caso, Español (es).
+      </p>
+      <p>
+        A continuación utilizamos el método de inicialización del servicio de datos (datapoint service), encargado
+        de configurar los puntos de acceso a datos y comprobar si existe un usuario autenticado. Como valores predeterminados,
+        guardamos referencias a los siguientes puntos de datos:
+      </p>
+      <ol>
+        <li>Firebase Root: <i>baseRef</i></li>
+        <li>Nodo comunitario: <i>communityRef</i></li>
+        <li>Nodo de datos publicos: <i>publicRef</i></li>
+        <li>Nodo de presencia (usuarios conectados): <i>presenceRef</i></li>
+      </ol>
+      <blockquote>
+<pre>
+this.set('baseRef', new Firebase(this.get('firebase')));
+this.set('communityRef', new Firebase(this.get('firebase') + '/community'));
+this.set('publicRef', new Firebase(this.get('firebase') + '/public'));
+this.set('presentUsersRef', new Firebase(this.get('firebase') + '/presence'));
+</pre>
+      </blockquote>
+      <p>
+        En caso de encontrar a un usuario autenticado, se guardará también una referencia al nodo de datos del usuario, <i>userRef</i>:
+      </p>
+      <blockquote>
+        <pre>
+this.set('userRef', new Firebase(userUrl));
+        </pre>
+      </blockquote>
+      <p>
+        Adicionalmente, se realizará una comprobración de 'perfil mínimo'. En caso de no tener datos del usuario, se
+        guardará una configuración básica de perfil en el nodo privado del usuario.
+      </p>
+      <p>
+        <b>Estas referencias a los puntos de datos en Firebase serán de gran ayuda durante el desarrollo ya que serán las
+        referencias utilizadas por los métodos CRUD definidos en el servicio de datos (datapoint).</b>
+        <br>
+        <small>Para leer más información sobre el servicio de datos, vaya los {{link-to 'docs de servicios' 'v1.es.servicios'}}</small>
+      </p>
+      <br>
+      <h5 class="thin">Acciones Genéricas</h5>
+      <p>
+        Con el fin de simplificar la interacción con las funcionalidades genéricas del stack
+        disponemos de una serie de acciones genéricas, implementadas en la applicationRoute.
+      </p>
+      <h5>signIn(provider)</h5>
+      <p>
+        La accion genérica 'signIn' requiere de un solo parámetro: 'provider'. Se encarga de autenticar
+        al usuario con Firebase a través del proveedor indicado.
+        Este Parámetro puede ser uno todos los que ponen a nuestra disposición los miembres de Firebase
+        en su API Javascript:
+      </p>
+      <ol>
+        <li>github</li>
+        <li>facebook</li>
+        <li>twitter</li>
+        <li>google</li>
+      </ol>
+      <p>
+        Recordar que cualquier autenticación con una red social requiere de una <b>configuración previa</b>
+        de la cuenta de firebase, en la que se active la autenticación con la red definida.
+        Puedes encontrar las guías de AUTENTICACIÓN de firebase <a href="https://www.firebase.com/docs/web/guide/user-auth.html#section-providers" target="_blank">AQUÍ</a>,
+        en la sección de proveedores.
+      </p>
+      <p>
+        El código de la acción genérica utiliza el método 'signIn' definido en el servicio de datos (fácil de utilizar desde cualquier otro punto de la aplicación):
+      </p>
+      <blockquote>
+        <pre>
+signIn: function(provider) {
+  this.Data.signIn(provider);
+}
+        </pre>
+      </blockquote>
+      <h5>signOut()</h5>
+      <p>
+        La accion genérica 'signOut' no requiere de ningún parámetro. Deslogará a cualquier usuario actualmente
+        autenticado, independientemente del proveedor utilizado.
+      </p>
+      <p>
+        El código de la acción genérica utiliza el método 'signOut' definido en el servicio de datos (fácil de utilizar desde cualquier otro punto de la aplicación):
+      </p>
+      <blockquote>
+        <pre>
+signOut: function() {
+  this.Data.signOut();
+}
+        </pre>
+      </blockquote>
+      <h5>redirectHome()</h5>
+      <p>
+        Acción común a casi todas las aplicaciones, disparada cuando un usuario pulsa el logo de la
+        app, cabecera u otro punto considerado de regreso al acceso principal.
+      </p>
+      <p>
+        El código de la acción genérica 'redirectHome' también cierra el SideNav génerico que
+        utilizamos como parte de la plantilla inicial (opcional):
+      </p>
+      <blockquote>
+        <pre>
+redirectHome: function(){
+  this.transitionTo('index');
+  // Hide sideNav
+  $('.button-collapse').sideNav('hide');
+}
+        </pre>
+      </blockquote>
+      <h5>setLocale(locale)</h5>
+      <p>
+        Esta acción modifica el idioma utilizado por el servicio de traducción, adaptando
+        los contenidos de la página al idioma seteado.
+      </p>
+      <p>
+        Recibe como parámetro la abreviación del idioma a utilizar ('en', 'es', 'ger', ...). Dejamos abierta
+        la opción de lanzar una notifación de aviso al usuario con el cambio de idioma, en la que se
+        presentará un string definido en los archivos de traducción. En nuestro caso, utilizamos el string
+        'languageChange', ubicado dentro del bloque de 'label's.
+      </p>
+      <blockquote>
+        <pre>
+setLocale: function (locale) {
+  this.set('i18n.locale', locale);
+  // this.Toast.addToast(this.get('i18n').t('label.languageChange'), 2000);
+}
+        </pre>
+      </blockquote>
+      <h5>focus(id, animation, speed)</h5>
+      <p>
+        Utilizamos esta acción genérica para lanzar una animación de énfasis. Basada en el uso del método
+        'go()', encontrado en el serivicio de animación (<i>Animate</i>).
+      </p>
+      <p>
+        Recibe como parámetros:
+      </p>
+      <ol>
+        <li><b>ID</b> del nodo a animar</li>
+        <li><b>Animación</b> a utilizar (puedes ver la lista de animaciones disponibles en la web de <a href="https://daneden.github.io/animate.css/">animate.css</a> o en los cheatsheets)</li>
+        <li><b>Velocidad</b> de la animación. A elegir entre: <i>'slow', 'normal' y 'fast'</i></li>
+      </ol>
+      <blockquote>
+        <pre>
+focus: function(id, animation, speed){
+  id = '#' + id;
+  this.Animate.go(id,animation,speed);
+}
+        </pre>
+      </blockquote>
+    </section>
+  </div>
+
+  {{outlet}}
+</div>
