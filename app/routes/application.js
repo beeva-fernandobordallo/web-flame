@@ -33,7 +33,7 @@ export default Ember.Route.extend({
     },
 
     redirectHome: function(){
-      
+
       // Hide sideNav
       $('.button-collapse').sideNav('hide');
 
@@ -132,6 +132,11 @@ export default Ember.Route.extend({
     focus: function(id, animation, speed, infinite){
       id = '#' + id;
       this.Animate.go(id,animation,speed, infinite);
+    },
+
+    focusHide: function(id, animation, speed){
+      id = '#' + id;
+      this.Animate.goAndHide(id,animation,speed);
     },
 
     focusHoverIn: function (id) {
