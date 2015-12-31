@@ -2,7 +2,7 @@
   <div class="amber lighten-2">
     <div class="container" style="padding-bottom:8px">
         <h1 id="jumpTitle" class="header thin" {{action 'focus' 'jumpTitle' 'bounce' 'slow'}} style="padding-top:60px">
-          <i>Rutas</i>
+          <i>Routes</i>
         </h1>
     </div>
   </div>
@@ -10,7 +10,7 @@
     <section class="center">
       <div class="containerthin" style="margin: 0; padding:15px 0;">
         <h6 class="header thin">
-          Ruta genérica utilizada para automatizar procesos de verificación de seguridad en acceso a rutas y controlar las animaciones de transición entre páginas.
+          Generic routes used to centralize repetitive methods, security checks and transition animations.
         </h6>
       </div>
     </section>
@@ -19,21 +19,21 @@
   <div class="container">
     <section>
       <h4 class="thin">
-        Ruta Base.js
+        Base.js Route
       </h4>
       <p>
-        Las rutas forman la base fundamental de la filosofía de Ember. Una ruta, una URL, un modelo. En un
-        intento de facilitar la vida al desarrollador, hemos creado una ruta de la que poder extender cualquier
-        ruta que requiera de:
+        Routes make for the basic building blocks in the ember philosophy. One route, one URL, one model. In an
+        attempt to simplify developers lives, we have created a base route from which one can extend, taking
+        advantage of:
         <ol>
-          <li>Una <b>transición de entrada/salida</b> genérica de la applicación</li>
-          <li><b>Autenticación</b> o un <b>nivel de seguridad</b> (rol) concreto</li>
+          <li>Generic <b>entry and exit page transitions</b> for the entire app</li>
+          <li><b>Authentication</b> and <b>rol check</b> per route</li>
         </ol>
       </p>
       <p>
-        Extender una ruta de esta es muy sencillo y el código a utilizar solo depende de la 'profundidad'
-        de la ruta. ¿Que queremos decir con esto? Muy fácil. Si tu ruta se encuentra en la carpeta <i>'routes'</i>,
-        sin estár anidada, utilizarás el siguiente código
+        Extending from this base route is very simple and the code needed only depends on the 'depth'
+        of the route itself. What do we mean by this? Well, if your route is found directly inside the
+        <i>'routes'</i> folder (not nested), you would replace the basic route code with the following:
       </p>
       <blockquote>
         <pre>
@@ -44,9 +44,9 @@ export default Base.extend({
         </pre>
       </blockquote>
       <p>
-        Sin embargo, si tu ruta está anidada habrás de localizar el archivo base.js de manera distinta. Por ejemplo,
-        si tu ruta se encuentra en la carpeta <i>'routes/users/dataRoutes/'</i>, el código para extender tu ruta de la base
-        sería el siguiente
+        However, if your route is nested, you will have to locate the base.js file adding a little bit of
+        folder navigation. For example, if your route is nested in the folder <i>'routes/users/dataRoutes/'</i>, the
+        code needed to extend from the base route will be the following:
       </p>
       <blockquote>
         <pre>
@@ -58,19 +58,20 @@ export default Base.extend({
       </blockquote>
 
       <p>
-        Como ves, la diferencia radica solo en <i>import Base from './../../base'</i>. Si tu archivo de ruta ser encuentra
-        en la misma altura que la ruta base, solo habrás de utilizar <i>'./base'</i>. Si está anidada, tendrás que añadir <i>'../'</i> por cada
-        nivel de profundidad alcanzado. Sencillo, ¿verdad?
+        As you can see, the difference lies in the first line (<i>import Base from './../../base'</i>). If your
+        route file is in the same folder as the base route, use <i>'./base'</i>. Else, if nested, add <i>'../'</i> for
+        every level of 'depth'. Easy, right?
       </p>
       <p>
-        <b>Adventencia:</b> ¡Hay un detalle fundamental sin el cual la ruta recién creada NO FUNCIONARÁ!
-        Dado que se ha configurado el servicio de animación de entrada y salida de páginas para utilizar
-        un elemento con clase 'page', si este no existe en el template de la ruta creada lo único que veremos
-        será una pantalla en blanco y la app se bloqueará.
+        <b>Warning:</b> There is a small detail without which a newly created route, extending from the base route,
+        WON'T WORK! Give the default configuration that comes with the 'base.js' route, the animation service will
+        look for an element on the page with a 'page' class attribute. If not found, the route will show a blank
+        screen and the app will enter a blocked state.
       </p>
       <p>
-        Pero no temas, tiene una solución muy sencilla. Cuando generas una nueva ruta, se crearán un archivo
-        en 'routes' y otro en 'templates'. El segundo contendrá una única linea de código:
+        But fear not, there is a very simple solution. When you create a new route (most likely using the
+        ember cli route generator), two main files will be created: one in the 'routes' folder and another in
+        the 'templates' folder. The template will initially contain one line of code:
       </p>
       <blockquote>
         <pre>
@@ -78,7 +79,7 @@ export default Base.extend({
         </pre>
       </blockquote>
       <p>
-        Reemplaza este código por el siguiente:
+        Replace it with:
       </p>
       <blockquote>
         <pre>
@@ -101,25 +102,25 @@ export default Base.extend({
 
     <section>
       <h4 class="thin">
-        Configuración de ruta
+        Configure a baseExtended Route
       </h4>
       <p>
-        La ruta base viene con una configuración básica por defecto. Esta es:
+        The route comes with a few preconfigured with the following defaults:
         <ol>
-          <li><b>Autenticación</b> no activada: 'false'</li>
-          <li>Nivel de <b>seguridad</b> nulo: 'null'</li>
-          <li>Transición de entrada: 'fadeInRightBig'</li>
-          <li>Transición de salida: 'fadeOutRightBig'</li>
+          <li><b>Authentication</b> not active: 'false'</li>
+          <li><b>Security level</b> at cero: 'null'</li>
+          <li>Entry transition: 'fadeInRightBig'</li>
+          <li>Exit transition: 'fadeOutRightBig'</li>
         </ol>
       </p>
       <p>
-        Sin embargo, estos comportamientos pueden ser parametrizados en la ruta con un par del
-        propiedades o sobreescribiendo los métodos/acciones que los implementan.
+        These defaults can be easily modified by setting a few parameters on the route and/or overwritting
+        the 'didTransition' and 'willTransition' action methods that implement them.
       </p>
       <p>
-        Vemos un ejemplo de una ruta que extiende de la ruta base y ha sido configurada para
-        exigir login al usuario, tener un nivel de seguridad de <i>2</i> y que al entrar o salir de la
-        página, se lance una animación de <i>fade</i> básica.
+        Next we see an example of a route being extended from the generic base route and configured to
+        require the user to be logged in, have a security level of <i>2</i> and to run a 'fade' animation
+        both on page exit and page entry.
       </p>
       <blockquote>
         <pre>
@@ -148,7 +149,7 @@ export default Base.extend({
         </pre>
       </blockquote>
       <p>
-        Desde arriba hasta abajo vemos:
+        Top to bottom, we read the code as follows:
         <ul>
           <li><b>Propiedad auth</b>: {Boolean}. Si <i>true</i>, la ruta comprueba que el usuario
           esté correctamente autenticado. De lo contrario (<i>false</i>), no se exigirá al usuario
