@@ -132,7 +132,7 @@ export default Base.extend({
 
   beforeModel: function(){
     return this._super().then(function(){
-      // Run this code after the authentication and security Level checks have completed
+      // Run this code after the authentication and security level checks have completed
     });
   },
 
@@ -151,22 +151,22 @@ export default Base.extend({
       <p>
         Top to bottom, we read the code as follows:
         <ul>
-          <li><b>Propiedad auth</b>: {Boolean}. Si <i>true</i>, la ruta comprueba que el usuario
-          esté correctamente autenticado. De lo contrario (<i>false</i>), no se exigirá al usuario
-          login previo y se obviará la siguiente propiedad.</li>
-          <li><b>Propiedad securityLevel</b>: {Number}. Si configurado a <i>null</i> no realizará ninguna
-          verificación del nivel de usuario logado. De lo contrario, podrá tomar valores numéricos mayores o iguales
-          a cero.</li>
-          <li><b>beforeModel</b>: La ruta base implementa los metodos de verificación de login
-          y nivel de seguridad en el beforeModel, envolviendo todo el proceso en una promesa. Esto
-          nos permite introducir código, antes durante y después de la llamada. En el ejemplo, presentamos
-          el lugar indicado para introducir código a ejecutar después de las verificaciones de seguridad.</li>
-          <li><b>actions Hash</b>: En el actionsHash sobreescribimos los métodos didTransition y willTransition,
-          encargadas de lanzar las animaciones de entrada y salida de página.
+          <li><b><i>Auth</i> property</b>: {Boolean}. If <i>true</i>, the route checks if the user is
+          correctly authenticated. Otherwise (<i>false</i>), the user will be able to enter the page with
+          no further security check.</li>
+          <li><b><i>securityLevel</i> property</b>: {Number}. If se to <i>null</i> no security level check will
+          be run agains the currently logged user. Otherwise, the property will be able to take vales greater than or equal
+          to zero (<i>&gt;0</i>)</li>
+          <li><b>beforeModel</b>: the base route implements the basic user and security level checks in the
+          beforeModel hook, enveloping all of these inside a <i>Promsise</i>. This allows the developer to place
+          additional code before and after the security checks take place. In the example you can see a comment
+          explaining the correct place to introduce additional code after the security checks take place.</li>
+          <li><b>actions Hash</b>: In the actionsHash we can overwrite the willTransition and didTransition methods
+          which, by default, are in charge of launching the page entry and exit animations.
           <br>
           <br>
-          <small>Para más información sobre
-          animaciones de transición, lea los docs sobre el {{link-to 'serivicio de animaciones' 'v1.es.servicios'}}</small></li>
+          <small>For more information on transition animations, read the documentation for
+          {{link-to 'the animation service' 'v1.en.servicios'}}</small></li>
         </ul>
       </p>
     </section>
